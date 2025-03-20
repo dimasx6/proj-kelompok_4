@@ -1,0 +1,113 @@
+/* Global Style */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f6f9; /* Warna dari referensi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Container */
+.login-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #ff4081; /* Warna dari referensi */
+  margin-bottom: 10px;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  margin: 8px 0 5px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #e73370; /* Warna dari referensi */
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Forgot Password & Register */
+.forgot-register {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.forgot-register a {
+  font-size: 14px;
+  color: #ff4081; /* Warna dari referensi */
+  text-decoration: none;
+}
+
+.forgot-register a:hover {
+  text-decoration: underline;
+}
+
+/* Login Button */
+.login-btn {
+  background-color: #ff4081; /* Warna dari referensi */
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.login-btn:hover {
+  background-color: #e73370; /* Warna dari referensi */
+}
+
+/* Separator */
+.separator {
+  margin: 15px 0;
+  font-size: 14px;
+  color: #888;
+}
+
+/* Google Button */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #e73370; /* Warna dari referensi */
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.google-btn img {
+  width: 18px;
+  margin-right: 8px;
+}
+
+.google-btn:hover {
+  background-color: #f4f6f9; /* Warna dari referensi */
+}
