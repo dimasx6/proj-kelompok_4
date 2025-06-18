@@ -15,14 +15,14 @@ Sebuah aplikasi web untuk mengelola penjualan pulsa, paket data, dan aksesori HP
 
 ## ✨ Fitur Unggulan
 
-| Fitur                         | Deskripsi                                                                 |
-|------------------------------|--------------------------------------------------------------------------|
-| 🔐 **Login & Register**       | Autentikasi pengguna, termasuk lupa password                            |
+| Fitur                         | Deskripsi                                                                |
+|-------------------------------|--------------------------------------------------------------------------|
+| 🔐 **Login & Register**       | Autentikasi pengguna, termasuk lupa password                             |
 | 📊 **Dashboard**              | Statistik transaksi harian & ringkasan performa                          |
 | 🛍️ **Katalog Produk**         | Pulsa, paket data, dan aksesori dengan detail produk                     |
 | 🛒 **Keranjang Belanja**      | Tambah produk sebelum checkout                                           |
 | 💳 **Pembayaran & Struk**     | Proses pembelian dengan tampilan struk otomatis                          |
-| 📄 **Riwayat Transaksi**      | Pantau semua transaksi sebelumnya                                       |
+| 📄 **Riwayat Transaksi**      | Pantau semua transaksi sebelumnya                                        |
 | 📦 **Manajemen Produk**       | Tambah, ubah, dan hapus produk serta stok                                |
 | 📈 **Laporan Penjualan**      | Rekap harian/bulanan untuk pemilik konter                                |
 | ⚙️ **Pengaturan Akun**        | Ubah data profil dan kata sandi                                          |
@@ -33,7 +33,6 @@ Sebuah aplikasi web untuk mengelola penjualan pulsa, paket data, dan aksesori HP
 ## 🧱 Struktur Proyek
 
 ```
-
 proj-kelompok\_4/
 ├── dashboard.html
 ├── login.html / register.html / forgot-password.html
@@ -51,9 +50,7 @@ proj-kelompok\_4/
 │   ├── histori/       → riwayat transaksi
 │   └── laporan/       → laporan penjualan
 └── image/             → gambar produk
-
 ````
-
 ---
 
 ## ⚙️ Cara Menjalankan Proyek Secara Lokal
@@ -99,19 +96,6 @@ Kami adalah tim mahasiswa yang bekerja sama dalam membangun sistem konter digita
 
 ---
 
-## 📷 Tampilan Antarmuka
-
-| Login                                                            | Dashboard | Katalog | Checkout |
-| ---------------------------------------------------------------- | --------- | ------- | -------- |
-| ![Login](https://via.placeholder.com/200x120?text=Login)         |           |         |          |
-| ![Dashboard](https://via.placeholder.com/200x120?text=Dashboard) |           |         |          |
-| ![Katalog](https://via.placeholder.com/200x120?text=Katalog)     |           |         |          |
-| ![Checkout](https://via.placeholder.com/200x120?text=Pembayaran) |           |         |          |
-
-*(Ganti dengan screenshot asli jika tersedia)*
-
----
-
 ## 📬 Kontak
 
 Jika ada pertanyaan atau ingin berdiskusi:
@@ -123,8 +107,5 @@ Jika ada pertanyaan atau ingin berdiskusi:
 > Terima kasih telah mengunjungi proyek ini! Jangan lupa beri ⭐ di GitHub jika kamu suka!
 
 ```
-
----
-
 Jika kamu ingin file ini dalam format Markdown `.md` siap pakai, beri tahu saja — saya bisa langsung siapkan untuk kamu unduh.
 ```
