@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laporan - Unieq Konter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2a52be;
+      --primary-dark: #1a3b91;
+      --secondary: #ff6b6b;
+      --light: #f8f9fa;
+      --dark: #333;
+      --gray: #6c757d;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      color: var(--dark);
+    }
+    
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: #ffd700;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px);
+    }
+    
+    .badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background-color: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      color: var(--primary);
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* Form Styles */
+    .form-container {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .form-group input {
+      padding: 0.7rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      width: 200px;
+    }
+    
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(42, 82, 190, 0.2);
+      outline: none;
+    }
+    
+    /* Button Styles */
+    .btn {
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: 40px;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    /* Summary Cards */
+    .summary-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .summary-box {
+      background-color: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    
+    .summary-box h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .summary-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    /* Table Styles */
+    .table-container {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    
+    th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+    }
+    
+    tr:hover {
+      background-color: rgba(42, 82, 190, 0.05);
+    }
+    
+    /* No Data Message */
+    .no-report {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      color: var(--gray);
+      font-size: 1rem;
+    }
+    
+    /* Loading Spinner */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Back Button */
+    .back-btn {
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-links a {
+        margin: 0.5rem;
+      }
+      
+      .form-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .form-group input {
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-mobile-alt"></i>
+      <span>Unieq Konter</span>
+    </div>
+    <div class="nav-links">
+  <a href="katalog.html">Katalog</a>
+  <a href="keranjang.html">Keranjang</a>
+  
+  <!-- Hanya untuk admin -->
+  <a href="dashboard.html" class="admin-only">Dashboard</a>
+  <a href="laporan-penjualan.html" class="admin-only">Laporan</a>
+  <a href="stok-produk.html" class="admin-only">Stok</a>
+  <a href="riwayat-transaksi.html">Riwayat</a>
+  <a href="pengaturan.html">Pengaturan</a>
+  <a href="#" onclick="logout()">Logout</a>
+</div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1 class="page-title">Laporan Penjualan</h1>
+    
+    <!-- Date Range Selector -->
+    <div class="form-container">
+      <div class="form-group">
+        <label for="start-date">Dari Tanggal</label>
+        <input type="date" id="start-date" name="start-date" required />
+      </div>
+      <div class="form-group">
+        <label for="end-date">Sampai Tanggal</label>
+        <input type="date" id="end-date" name="end-date" required />
+      </div>
+      <button id="search-btn" class="btn btn-primary" onclick="searchReports()">
+        Cari Laporan
+        <span id="loading-spinner" class="loading" style="display: none"></span>
+      </button>
+    </div>
+
+    <!-- Summary Section -->
+    <div id="summary-container" class="summary-container" style="display: none">
+      <div class="summary-box">
+        <h3>Total Omset</h3>
+        <div class="summary-value" id="omset">Rp 0</div>
+      </div>
+      <div class="summary-box">
+        <h3>Total Laba</h3>
+        <div class="summary-value" id="laba">Rp 0</div>
+      </div>
+      <div class="summary-box">
+        <h3>Produk Terlaris</h3>
+        <div class="summary-value" id="produk-terlaris">-</div>
+      </div>
+    </div>
+
+    <!-- Transactions Table -->
+    <div class="table-container">
+      <table id="transactions-table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Produk</th>
+            <th>Qty</th>
+            <th>Harga Beli</th>
+            <th>Harga Jual</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- No Data Message -->
+    <div id="no-report" class="no-report" style="display: none">
+      <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem; color: var(--gray);"></i>
+      <p>Tidak ada data penjualan untuk periode yang dipilih.</p>
+    </div>
+
+    <a href="katalog.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Kembali ke katalog
+    </a>
+  </div>
+
+  <script>
+    // Format number as Indonesian Rupiah
+    function formatRupiah(angka) {
+      if (angka === null || angka === undefined || isNaN(angka)) {
+        return 'Rp 0';
+      }
+      return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    // Format date
+    function formatDate(dateString) {
+      if (!dateString) return '-';
+      try {
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('id-ID', options);
+      } catch {
+        return dateString;
+      }
+    }
+
+    // Format time
+    function formatTime(dateString) {
+      if (!dateString) return '';
+      try {
+        const options = { hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleTimeString('id-ID', options);
+      } catch {
+        return '';
+      }
+    }
+
+    async function searchReports() {
+      const startDate = document.getElementById('start-date').value;
+      const endDate = document.getElementById('end-date').value;
+      const searchBtn = document.getElementById('search-btn');
+      const loadingSpinner = document.getElementById('loading-spinner');
+      const transactionsTable = document.querySelector('#transactions-table tbody');
+      const summaryContainer = document.getElementById('summary-container');
+      const noReport = document.getElementById('no-report');
+
+      if (!startDate || !endDate) {
+        alert('Harap pilih rentang tanggal');
+        return;
+      }
+
+      searchBtn.disabled = true;
+      loadingSpinner.style.display = 'inline-block';
+
+      try {
+        transactionsTable.innerHTML = '';
+        summaryContainer.style.display = 'none';
+        noReport.style.display = 'none';
+
+        const response = await fetch(`backend/laporan_get.php?start=${startDate}&end=${endDate}`);
+        
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.message || 'Gagal memuat laporan');
+        }
+
+        if (result.data && result.data.length > 0) {
+          result.data.forEach((item, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${formatDate(item.date)}<br><small>${formatTime(item.date)}</small></td>
+              <td>${item.product || '-'}</td>
+              <td>${item.qty || 0}</td>
+              <td>${formatRupiah(item.harga_beli || 0)}</td>
+              <td>${formatRupiah(item.harga_jual || 0)}</td>
+              <td>${formatRupiah(item.subtotal || 0)}</td>
+            `;
+            transactionsTable.appendChild(row);
+          });
+
+          document.getElementById('omset').textContent = formatRupiah(result.summary?.omset || 0);
+          document.getElementById('laba').textContent = formatRupiah(result.summary?.laba || 0);
+          document.getElementById('produk-terlaris').textContent = result.summary?.produk_terlaris || '-';
+          
+          summaryContainer.style.display = 'grid';
+        } else {
+          noReport.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert(`Gagal memuat laporan: ${error.message}`);
+        noReport.style.display = 'block';
+        noReport.textContent = `Error: ${error.message}`;
+      } finally {
+        searchBtn.disabled = false;
+        loadingSpinner.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+      
+      document.getElementById('start-date').valueAsDate = firstDay;
+      document.getElementById('end-date').valueAsDate = today;
+      updateKeranjangCount();
+    });
+
+    const userId = 12;
+
+    function updateKeranjangCount() {
+      fetch("backend/keranjang/keranjang_count.php?id_user=" + userId)
+        .then(res => res.json())
+        .then(data => {
+          const countElement = document.getElementById("keranjangCount");
+          countElement.textContent = data.count > 0 ? data.count : "";
+        })
+        .catch(() => {
+          document.getElementById("keranjangCount").textContent = "";
+        });
+    }
+  </script>
+  <script src="../auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Struk Pembayaran - Unieq Konter</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #2a52be;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .info {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .info strong {
+      display: inline-block;
+      width: 150px;
+    }
+    .cart-items {
+      margin-top: 20px;
+    }
+    .cart-items table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart-items th,
+    .cart-items td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+      font-size: 14px;
+    }
+    .total {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      background-color: #2a52be;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #1d3d96;
+    }
+    .btn.dashboard-btn {
+      width: auto;
+      margin: 20px auto 0 auto;
+      display: block;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+    @media print {
+      .btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="struk-container">
+    <h2>Struk Pembayaran</h2>
+
+    <div class="info">
+      <strong>Tanggal:</strong> <span id="tanggal">-</span>
+    </div>
+    <div class="info">
+      <strong>Metode Pembayaran:</strong> <span id="metode">-</span>
+    </div>
+
+    <div class="cart-items">
+      <table>
+        <thead>
+          <tr>
+            <th>Produk</th>
+            <th>Harga</th>
+          </tr>
+        </thead>
+        <tbody id="items">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="total">Total: <span id="total">-</span></div>
+
+    <button class="btn" onclick="window.print()">Cetak Struk</button>
+    <a href="katalog.html" class="btn katalog-btn">Kembali ke katalog</a>
+  </div>
+
+  <script>
+  fetch("backend/transaksi/get_struck.php")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "success") {
+        // Tampilkan tanggal dan metode pembayaran
+        document.getElementById("tanggal").textContent = new Date(data.tanggal).toLocaleString("id-ID");
+        document.getElementById("metode").textContent = data.metode || "-";
+
+        // Tampilkan item produk
+        const tbody = document.getElementById("items");
+        let total = 0;
+
+        data.items.forEach((item) => {
+          const price = parseInt(item.subtotal);
+          total += price;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.nama}</td>
+            <td>Rp ${price.toLocaleString("id-ID")}</td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        // Tampilkan total
+        document.getElementById("total").textContent = "Rp " + total.toLocaleString("id-ID");
+      } else {
+        alert("Struk tidak ditemukan.");
+        window.location.href = "dashboard.html";
+      }
+    })
+    .catch((err) => {
+      console.error("Gagal mengambil data struk:", err);
+      alert("Terjadi kesalahan saat memuat struk.");
+    });
+</script>
+</body>
+</html>

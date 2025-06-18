@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keranjang - Unieq Konter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2a52be;
+      --primary-dark: #1a3b91;
+      --secondary: #ff6b6b;
+      --light: #f8f9fa;
+      --dark: #333;
+      --gray: #6c757d;
+      --border: #e0e0e0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      color: var(--dark);
+    }
+    
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: #ffd700;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px);
+    }
+    
+    .badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background-color: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      color: var(--primary);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    /* Cart Content */
+    .cart-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .cart-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Cart Items */
+    .cart-items {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
+    }
+    
+    .cart-empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--gray);
+    }
+    
+    .cart-empty i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    
+    .cart-item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .cart-item-title {
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .cart-item-price {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .cart-item-remove {
+      color: var(--secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .cart-item-remove:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Cart Summary */
+    .cart-summary {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    
+    .summary-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .summary-total {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    /* Buttons */
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(42, 82, 190, 0.3);
+    }
+    
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+    
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #28a745;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 1002;
+      animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+      transform: translateX(120%);
+    }
+    
+    @keyframes slideIn {
+      to { transform: translateX(0); }
+    }
+    
+    @keyframes slideOut {
+      from { transform: translateX(0); }
+      to { transform: translateX(120%); }
+    }
+    
+    .toast i {
+      font-size: 1.2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-links a {
+        margin: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-mobile-alt"></i>
+      <span>Unieq Konter</span>
+    </div>
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="katalog.html">Katalog</a>
+      <a href="keranjang.html">Keranjang <span id="keranjangCount" class="badge">0</span></a>
+      <a href="riwayat-transaksi.html">Riwayat</a>
+      <a href="stok-produk.html">Stok</a>
+      <a href="laporan-penjualan.html">Laporan</a>
+      <a href="pengaturan.html">Pengaturan</a>
+      <a href="login.html">login</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Keranjang Belanja</h1>
+    </div>
+    
+    <div class="cart-container">
+      <!-- Cart Items -->
+      <div class="cart-items" id="cartItems">
+        <!-- Items will be loaded here -->
+      </div>
+      
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <h3 class="summary-title">Ringkasan Belanja</h3>
+        <div class="summary-row">
+          <span>Total Harga: </span>
+          <span id="totalPrice">Rp 0</span>
+        </div>
+        <div class="summary-row">
+          <span>Diskon:</span>
+          <span id="discount">Rp 0</span>
+        </div>
+        <div class="summary-row summary-total">
+          <span>Total Pembayaran:</span>
+          <span id="grandTotal">Rp 0</span>
+        </div>
+        
+        <button class="btn btn-primary" onclick="checkout()">
+          <i class="fas fa-credit-card"></i> Lanjut ke Pembayaran
+        </button>
+        <button class="btn btn-secondary" onclick="window.location.href='katalog.html'">
+          <i class="fas fa-arrow-left"></i> Lanjutkan Belanja
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+ 
+  <script>
+    // Toast function
+    function showToast(message = "Item berhasil dihapus") {
+      const toast = document.getElementById("toast");
+      document.getElementById("toastMessage").textContent = message;
+      toast.style.display = "flex";
+      setTimeout(() => {
+        toast.style.animation = "slideOut 0.3s ease forwards";
+      }, 3000);
+    }
+
+    // Load cart items
+    function loadCart() {
+      fetch("backend/keranjang/keranjang_get.php")
+        .then(response => response.json())
+        .then(data => {
+          const cartItems = document.getElementById("cartItems");
+          
+          if (data.length === 0) {
+            cartItems.innerHTML = `
+              <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Keranjang Anda Kosong</h3>
+                <p>Mulai belanja sekarang dan temukan produk terbaik</p>
+              </div>
+            `;
+            document.getElementById("totalPrice").textContent = "Rp 0";
+            document.getElementById("grandTotal").textContent = "Rp 0";
+            document.querySelector(".btn-primary").disabled = true;
+            return;
+          }
+
+          let total = 0;
+          let html = '';
+          
+          data.forEach(item => {
+            const itemTotal = item.harga_jual * item.qty;
+            total += itemTotal;
+            
+            html += `
+              <div class="cart-item">
+                <img src="image/${item.gambar}" alt="${item.nama}" class="cart-item-img">
+                <div class="cart-item-details">
+                  <h4 class="cart-item-title">${item.nama}</h4>
+                  <span class="cart-item-price">Rp ${parseInt(item.harga_jual).toLocaleString('id-ID')}</span>
+                </div>
+                <button class="cart-item-remove" onclick="hapusItem(${item.id})">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            `;
+          });
+
+          cartItems.innerHTML = html;
+          document.getElementById("totalPrice").textContent = `Rp ${total.toLocaleString('id-ID')}`;
+          document.getElementById("grandTotal").textContent = `Rp ${total.toLocaleString('id-ID')}`;
+          updateKeranjangCount();
+        })
+        .catch(error => {
+          console.error("Gagal mengambil data keranjang:", error);
+          showToast("Gagal memuat keranjang");
+        });
+    }
+
+    // Remove item from cart
+    function hapusItem(id) {
+      if (!confirm("Yakin ingin menghapus item ini dari keranjang?")) return;
+
+      fetch("backend/keranjang/keranjang_delete.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      })
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            showToast("Item berhasil dihapus");
+            loadCart();
+          } else {
+            showToast("Gagal menghapus item");
+          }
+        })
+        .catch(err => {
+          console.error("Error:", err);
+          showToast("Terjadi kesalahan");
+        });
+    }
+
+    // Update cart count
+    function updateKeranjangCount() {
+      fetch("backend/keranjang/keranjang_count.php")
+        .then(res => res.json())
+        .then(data => {
+          const countElement = document.getElementById("keranjangCount");
+          if (data.count > 0) {
+            countElement.textContent = data.count;
+          } else {
+            countElement.textContent = "";
+          }
+        })
+        .catch(() => {
+          document.getElementById("keranjangCount").textContent = "";
+        });
+    }
+
+    // Checkout function
+    function checkout() {
+      if (confirm("Lanjutkan ke proses pembayaran?")) {
+        window.location.href = "pembayaran_co.html";
+      }
+    }
+
+    // Initialize on load
+    document.addEventListener("DOMContentLoaded", loadCart);
+  </script>
+</body>
+</html>

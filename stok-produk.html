@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stok Produk - Unieq Konter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2a52be;
+      --primary-dark: #1a3b91;
+      --secondary: #ff6b6b;
+      --light: #f8f9fa;
+      --dark: #333;
+      --gray: #6c757d;
+      --success: #28a745;
+      --danger: #dc3545;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      color: var(--dark);
+    }
+    
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: #ffd700;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px);
+    }
+    
+    .badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background-color: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      color: var(--primary);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    .search-filter {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .search-bar {
+      position: relative;
+      width: 250px;
+    }
+    
+    .search-bar input {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.5rem;
+      border: none;
+      border-radius: 30px;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+    }
+    
+    .search-bar i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-title {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .form-control {
+      flex: 1;
+      position: relative;
+    }
+    
+    .form-control label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .form-control input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(42, 82, 190, 0.2);
+      outline: none;
+    }
+    
+    /* Table Styles */
+    .table-container {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    table th {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+    
+    table td {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      color: var(--dark);
+    }
+    
+    table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    table tr:hover {
+      background-color: rgba(42, 82, 190, 0.05);
+    }
+    
+    /* Button Styles */
+    .btn {
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+    
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background-color: #c82333;
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+    
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+    
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .page-info {
+      padding: 0.5rem 1rem;
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: var(--success);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 1002;
+      animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+      transform: translateX(120%);
+    }
+    
+    .toast.error {
+      background-color: var(--danger);
+    }
+    
+    @keyframes slideIn {
+      to { transform: translateX(0); }
+    }
+    
+    @keyframes slideOut {
+      from { transform: translateX(0); }
+      to { transform: translateX(120%); }
+    }
+    
+    .toast i {
+      font-size: 1.2rem;
+    }
+
+    /* Low Stock Styles */
+    .low-stock {
+      background-color: #fff8f8;
+      border-left: 4px solid var(--danger);
+    }
+
+    .low-stock td:first-child {
+      position: relative;
+    }
+
+    .low-stock td:first-child::before {
+      content: "!";
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background-color: var(--danger);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .low-stock-notification {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: var(--danger);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .low-stock-notification.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-links a {
+        margin: 0.5rem;
+      }
+      
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .search-filter {
+        width: 100%;
+      }
+      
+      .search-bar {
+        width: 100%;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-mobile-alt"></i>
+      <span>Unieq Konter</span>
+    </div>
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="katalog.html">Katalog</a>
+      <a href="keranjang.html">Keranjang <span id="keranjangCount" class="badge">0</span></a>
+      <a href="riwayat-transaksi.html">Riwayat</a>
+      <a href="stok-produk.html">Stok</a>
+      <a href="laporan-penjualan.html">Laporan</a>
+      <a href="pengaturan.html">Pengaturan</a>
+      <a href="login.html">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Stok Produk</h1>
+      <div class="search-filter">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchBox" placeholder="Cari produk..." oninput="searchProduct()">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Add Product Form -->
+    <div class="form-group">
+      <h3 class="form-title">Tambah Produk Baru</h3>
+      <div class="form-row">
+        <div class="form-control">
+          <label for="productName">Nama Produk</label>
+          <input type="text" id="productName" placeholder="Masukkan nama produk">
+        </div>
+        <div class="form-control">
+          <label for="buyPrice">Harga Beli</label>
+          <input type="text" id="buyPrice" placeholder="Masukkan harga beli">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-control">
+          <label for="sellPrice">Harga Jual</label>
+          <input type="text" id="sellPrice" placeholder="Masukkan harga jual">
+        </div>
+        <div class="form-control">
+          <label for="stock">Stok</label>
+          <input type="number" id="stock" placeholder="Masukkan jumlah stok">
+        </div>
+      </div>
+      <button class="btn btn-primary" id="submitBtn" onclick="addProduct()">
+        <i class="fas fa-plus"></i> Tambah Produk
+      </button>
+    </div>
+    
+    <!-- Products Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Nama Produk</th>
+            <th>Harga Beli</th>
+            <th>Harga Jual</th>
+            <th>Stok</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="productTable"></tbody>
+      </table>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="btn btn-secondary" onclick="prevPage()">
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      <span class="page-info" id="pageInfo">1</span>
+      <button class="btn btn-secondary" onclick="nextPage()">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="window.location.href='katalog.html'">
+      <i class="fas fa-arrow-left"></i> Kembali ke Katalog
+    </button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Produk berhasil ditambahkan!</span>
+  </div>
+
+  <!-- Low Stock Notification -->
+  <div id="lowStockNotification" class="low-stock-notification">
+    <i class="fas fa-exclamation-circle"></i>
+    <span id="lowStockMessage"></span>
+  </div>
+
+  <script>
+    let products = [];
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let editingIndex = null;
+    let filteredProducts = null;
+    const lowStockThreshold = 5; // Threshold for low stock
+
+    // Toast function
+    function showToast(message = "Produk berhasil ditambahkan!", isSuccess = true) {
+      const toast = document.getElementById("toast");
+      toast.className = isSuccess ? "toast" : "toast error";
+      document.getElementById("toastMessage").textContent = message;
+      toast.style.display = "flex";
+      setTimeout(() => {
+        toast.style.animation = "slideOut 0.3s ease forwards";
+      }, 3000);
+    }
+
+    // Cart count function
+    function updateKeranjangCount() {
+      fetch("backend/keranjang/keranjang_count.php?id_user=" + userId)
+        .then(res => res.json())
+        .then(data => {
+          const countElement = document.getElementById("keranjangCount");
+          if (data.count > 0) {
+            countElement.textContent = data.count;
+          } else {
+            countElement.textContent = "";
+          }
+        })
+        .catch(() => {
+          document.getElementById("keranjangCount").textContent = "";
+        });
+    }
+
+    // Low stock notification
+    function showLowStockNotification(count) {
+      const notification = document.getElementById("lowStockNotification");
+      const message = document.getElementById("lowStockMessage");
+      
+      if (count > 0) {
+        message.textContent = `${count} produk dengan stok rendah (kurang dari ${lowStockThreshold})!`;
+        notification.classList.add("show");
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.classList.remove("show");
+        }, 5000);
+      }
+    }
+
+    async function fetchProducts() {
+      try {
+        const res = await fetch("backend/produk/get.php");
+        const data = await res.json();
+        products = data;
+        displayProducts();
+        
+        // Check for low stock items on load
+        const lowStockCount = products.filter(p => p.stok < lowStockThreshold).length;
+        if (lowStockCount > 0) {
+          showLowStockNotification(lowStockCount);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        showToast("Gagal memuat data produk", false);
+      }
+    }
+
+    function displayProducts() {
+      const data = filteredProducts || products;
+      const start = (currentPage - 1) * itemsPerPage;
+      const paginated = data.slice(start, start + itemsPerPage);
+      const table = document.getElementById("productTable");
+      table.innerHTML = "";
+
+      let currentLowStockCount = 0;
+
+      paginated.forEach((p, i) => {
+        const row = document.createElement("tr");
+        const isLowStock = p.stok < lowStockThreshold;
+        
+        if (isLowStock) {
+          row.classList.add("low-stock");
+          currentLowStockCount++;
+        }
+
+        row.innerHTML = `
+          <td>${start + i + 1}</td>
+          <td>${p.nama}</td>
+          <td>Rp ${parseInt(p.harga_beli).toLocaleString('id-ID')}</td>
+          <td>Rp ${parseInt(p.harga_jual).toLocaleString('id-ID')}</td>
+          <td>${p.stok}</td>
+          <td>
+            <button class="btn btn-success" onclick="editProduct(${start + i})">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="btn btn-danger" onclick="deleteProduct(${start + i})">
+              <i class="fas fa-trash"></i> Hapus
+            </button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+
+      // Show notification if there are low stock items on this page
+      if (currentLowStockCount > 0) {
+        showLowStockNotification(currentLowStockCount);
+      }
+
+      document.getElementById("pageInfo").innerText = currentPage;
+    }
+
+    async function addProduct() {
+      const name = document.getElementById("productName").value.trim();
+      const buy = document.getElementById("buyPrice").value.trim();
+      const sell = document.getElementById("sellPrice").value.trim();
+      const stock = document.getElementById("stock").value.trim();
+
+      if (!name || !buy || !sell || !stock) {
+        showToast("Semua kolom harus diisi!", false);
+        return;
+      }
+
+      try {
+        const response = await fetch("backend/produk/create.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nama: name,
+            harga_beli: buy,
+            harga_jual: sell,
+            stok: stock,
+          }),
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showToast("Produk berhasil ditambahkan!");
+          fetchProducts();
+          resetForm();
+        } else {
+          showToast(result.message || "Gagal menambahkan produk", false);
+        }
+      } catch (error) {
+        showToast("Terjadi kesalahan jaringan", false);
+        console.error("Error:", error);
+      }
+    }
+
+    function editProduct(index) {
+      const p = products[index];
+      document.getElementById("productName").value = p.nama;
+      document.getElementById("buyPrice").value = p.harga_beli;
+      document.getElementById("sellPrice").value = p.harga_jual;
+      document.getElementById("stock").value = p.stok;
+      editingIndex = index;
+
+      const btn = document.getElementById("submitBtn");
+      btn.innerHTML = '<i class="fas fa-save"></i> Simpan Perubahan';
+      btn.onclick = saveProduct;
+      
+      // Scroll to form
+      document.querySelector('.form-group').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function saveProduct() {
+      const name = document.getElementById("productName").value.trim();
+      const buy = document.getElementById("buyPrice").value.trim();
+      const sell = document.getElementById("sellPrice").value.trim();
+      const stock = document.getElementById("stock").value.trim();
+      const id = products[editingIndex].id;
+
+      if (!name || !buy || !sell || !stock) {
+        showToast("Semua kolom harus diisi!", false);
+        return;
+      }
+
+      try {
+        const response = await fetch("backend/produk/update.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id,
+            nama: name,
+            harga_beli: buy,
+            harga_jual: sell,
+            stok: stock,
+          }),
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showToast("Produk berhasil diperbarui!");
+          fetchProducts();
+          resetForm();
+        } else {
+          showToast(result.message || "Gagal memperbarui produk", false);
+        }
+      } catch (error) {
+        showToast("Terjadi kesalahan jaringan", false);
+        console.error("Error:", error);
+      }
+    }
+
+    async function deleteProduct(index) {
+      const id = products[index].id;
+      if (!confirm("Yakin ingin menghapus produk ini?")) return;
+
+      try {
+        const response = await fetch("backend/produk/delete.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showToast("Produk berhasil dihapus!");
+          fetchProducts();
+        } else {
+          showToast(result.message || "Gagal menghapus produk", false);
+        }
+      } catch (error) {
+        showToast("Terjadi kesalahan jaringan", false);
+        console.error("Error:", error);
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("productName").value = "";
+      document.getElementById("buyPrice").value = "";
+      document.getElementById("sellPrice").value = "";
+      document.getElementById("stock").value = "";
+      editingIndex = null;
+
+      const btn = document.getElementById("submitBtn");
+      btn.innerHTML = '<i class="fas fa-plus"></i> Tambah Produk';
+      btn.onclick = addProduct;
+    }
+
+    function searchProduct() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      if (!query) {
+        filteredProducts = null;
+      } else {
+        filteredProducts = products.filter(p => 
+          p.nama.toLowerCase().includes(query)
+        );
+      }
+      currentPage = 1;
+      displayProducts();
+    }
+
+    function nextPage() {
+      const total = (filteredProducts || products).length;
+      if (currentPage * itemsPerPage < total) {
+        currentPage++;
+        displayProducts();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        displayProducts();
+      }
+    }
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchProducts();
+      // Initialize cart count if needed
+      if (typeof userId !== 'undefined') {
+        updateKeranjangCount();
+      }
+    });
+  </script>
+  <script src="../auth.js"></script>
+</body>
+</html>
